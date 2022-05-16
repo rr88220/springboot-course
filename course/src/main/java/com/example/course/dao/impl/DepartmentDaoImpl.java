@@ -81,4 +81,20 @@ public class DepartmentDaoImpl implements DepartmentDao {
         map.put("departmentId",departmentId);
         namedParameterJdbcTemplate.update(sql,map);
     }
+
+    @Override
+    public Integer getDepartmentsTotal(DepartmentQueryParam departmentQueryParam) {
+        String sql = "SELECT COUNT(*) FROM department WHERE 1=1";
+        Map<String,Object> map =new HashMap<>();
+        if(departmentQueryParam.getSearch()!=null){
+            sql = sql + " AND department_name LIKE :search";
+            map.put("search","%"+departmentQueryParam.getSearch()+"%");
+        }
+        sql = sql + " ORDER BY "+departmentQueryParam.getOrderby()+" "+departmentQueryParam.getSort();
+        sql = sql + " LIMIT :limit OFFSET :offset";
+        map.put("limit",departmentQueryParam.getLimit());
+        map.put("offset",departmentQueryParam.getOffset());
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+        return total;
+    }
 }

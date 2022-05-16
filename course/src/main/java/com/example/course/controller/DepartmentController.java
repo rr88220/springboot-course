@@ -4,6 +4,7 @@ import com.example.course.dto.DepartmentQueryParam;
 import com.example.course.dto.DepartmentRequest;
 import com.example.course.model.Department;
 import com.example.course.service.DepartmentService;
+import com.example.course.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,32 @@ public class DepartmentController {
 
         List<Department> departmentList = departmentService.getDepartments(departmentQueryParam);
         return ResponseEntity.ok(departmentList);
+    }
+
+    @GetMapping("/departments/page")
+    public ResponseEntity<Page<Department>> getDepartmentsPage(
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "department_id") String orderby,
+            @RequestParam(defaultValue = "ASC") String sort,
+            @RequestParam(defaultValue = "5") Integer limit,
+            @RequestParam(defaultValue = "0") Integer offset){
+        DepartmentQueryParam departmentQueryParam = new DepartmentQueryParam();
+        departmentQueryParam.setSearch(search);
+        departmentQueryParam.setOrderby(orderby);
+        departmentQueryParam.setSort(sort);
+        departmentQueryParam.setLimit(limit);
+        departmentQueryParam.setOffset(offset);
+
+        List<Department> departmentList = departmentService.getDepartments(departmentQueryParam);
+        Integer total = departmentService.getDepartmentsTotal(departmentQueryParam);
+
+        Page<Department> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setResult(departmentList);
+        page.setTotal(total);
+
+        return ResponseEntity.ok(page);
     }
 
     @PostMapping("/department")

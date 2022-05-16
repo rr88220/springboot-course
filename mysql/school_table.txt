@@ -1,0 +1,41 @@
+
+CREATE TABLE course(
+    course_id VARCHAR(10) PRIMARY KEY,
+    course_name VARCHAR(20) NOT NULL,
+    teacher_id INT NOT NULL ,
+    stu_limit INT,
+    description VARCHAR(1024),
+    week SET('星期一','星期二','星期三','星期四','星期五'),
+    class SET('1','2','3','4','5','6','7','8'),
+    create_time TIMESTAMP,
+    last_modified_time TIMESTAMP
+);
+
+CREATE TABLE teacher(
+    teacher_id INT PRIMARY KEY AUTO_INCREMENT,
+    teacher_name VARCHAR(20) NOT NULL,
+    department_id INT,
+    create_time TIMESTAMP,
+    last_modified_time TIMESTAMP
+);
+
+CREATE TABLE department(
+    department_id INT AUTO_INCREMENT PRIMARY KEY,
+    department_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE student(
+    student_id VARCHAR(10) PRIMARY KEY,
+    student_name VARCHAR(20) NOT NULL ,
+    department_id INT,
+    password VARCHAR(30) NOT NULL,
+    create_time TIMESTAMP,
+    last_modified_time TIMESTAMP
+);
+
+CREATE TABLE choice(
+    choice_id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id VARCHAR(10) NOT NULL,
+    course_id VARCHAR(10),
+    result INT DEFAULT 1
+);

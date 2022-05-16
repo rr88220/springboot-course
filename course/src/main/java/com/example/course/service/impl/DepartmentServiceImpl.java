@@ -40,4 +40,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void deleteDepartment(Integer departmentId) {
         departmentDao.deleteDepartment(departmentId);
     }
+
+    @Override
+    public Integer getDepartmentsTotal(DepartmentQueryParam departmentQueryParam) {
+        return departmentDao.getDepartmentsTotal(departmentQueryParam);
+    }
 }

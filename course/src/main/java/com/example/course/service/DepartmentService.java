@@ -12,4 +12,5 @@ public interface DepartmentService {
     public Integer createDepartment(DepartmentRequest departmentRequest);
     public void updateDepartment(Integer departmentId,DepartmentRequest departmentRequest);
     public void deleteDepartment(Integer departmentId);
+    public Integer getDepartmentsTotal(DepartmentQueryParam departmentQueryParam);
 }
