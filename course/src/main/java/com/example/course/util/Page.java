@@ -1,7 +1,5 @@
 package com.example.course.util;
 
-import com.example.course.model.Department;
-
 import java.util.List;
 
 public class Page<T> {
