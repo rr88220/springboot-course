@@ -1,11 +1,20 @@
 package com.example.course.dto;
 
-public class TeacherQueryParam {
+public class QueryParam {
+    private String department;
     private String search;
-    private String ordeyby;
+    private String orderby;
     private String sort;
     private Integer limit;
     private Integer offset;
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
     public String getSearch() {
         return search;
@@ -15,12 +24,12 @@ public class TeacherQueryParam {
         this.search = search;
     }
 
-    public String getOrdeyby() {
-        return ordeyby;
+    public String getOrderby() {
+        return orderby;
     }
 
-    public void setOrdeyby(String ordeyby) {
-        this.ordeyby = ordeyby;
+    public void setOrderby(String orderby) {
+        this.orderby = orderby;
     }
 
     public String getSort() {

@@ -28,7 +28,7 @@ CREATE TABLE student(
     student_id VARCHAR(10) PRIMARY KEY,
     student_name VARCHAR(20) NOT NULL ,
     department_id INT,
-    password VARCHAR(30) NOT NULL,
+    password VARCHAR(30) NOT NULL DEFAULT '0000',
     create_time TIMESTAMP,
     last_modified_time TIMESTAMP
 );

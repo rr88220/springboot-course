@@ -1,7 +1,7 @@
 package com.example.course.service.impl;
 
 import com.example.course.dao.DepartmentDao;
-import com.example.course.dto.DepartmentQueryParam;
+import com.example.course.dto.QueryParam;
 import com.example.course.dto.DepartmentRequest;
 import com.example.course.model.Department;
 import com.example.course.service.DepartmentService;
@@ -22,7 +22,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> getDepartments(DepartmentQueryParam departmentQueryParam) {
+    public List<Department> getDepartments(QueryParam departmentQueryParam) {
         return departmentDao.getDepartments(departmentQueryParam);
     }
 
@@ -42,7 +42,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Integer getDepartmentsTotal(DepartmentQueryParam departmentQueryParam) {
+    public Integer getDepartmentsTotal(QueryParam departmentQueryParam) {
         return departmentDao.getDepartmentsTotal(departmentQueryParam);
     }
 }

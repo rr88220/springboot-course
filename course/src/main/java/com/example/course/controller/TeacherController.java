@@ -1,6 +1,6 @@
 package com.example.course.controller;
 
-import com.example.course.dto.TeacherQueryParam;
+import com.example.course.dto.QueryParam;
 import com.example.course.dto.TeacherRequest;
 import com.example.course.model.Teacher;
 import com.example.course.service.TeacherService;
@@ -28,19 +28,21 @@ public class TeacherController {
         }
     }
     @GetMapping("/teachers")
-    public ResponseEntity<List<Teacher>> getTeachers(@RequestParam(required = false) String search,
+    public ResponseEntity<List<Teacher>> getTeachers(@RequestParam(required = false) String department,
+                                                     @RequestParam(required = false) String search,
                                                      @RequestParam(defaultValue = "create_time") String orderby,
                                                      @RequestParam(defaultValue = "desc") String sort,
                                                      @RequestParam(defaultValue = "5") Integer limit,
                                                      @RequestParam(defaultValue = "0") Integer offset){
-        TeacherQueryParam teacherQueryParam = new TeacherQueryParam();
-        teacherQueryParam.setSearch(search);
-        teacherQueryParam.setOrdeyby(orderby);
-        teacherQueryParam.setSort(sort);
-        teacherQueryParam.setLimit(limit);
-        teacherQueryParam.setOffset(offset);
+        QueryParam queryParam = new QueryParam();
+        queryParam.setDepartment(department);
+        queryParam.setSearch(search);
+        queryParam.setOrderby(orderby);
+        queryParam.setSort(sort);
+        queryParam.setLimit(limit);
+        queryParam.setOffset(offset);
 
-        List<Teacher> teacherList = teacherService.getTeachers(teacherQueryParam);
+        List<Teacher> teacherList = teacherService.getTeachers(queryParam);
         return ResponseEntity.ok(teacherList);
     }
 
@@ -69,24 +71,26 @@ public class TeacherController {
     }
 
     @GetMapping("/teachers/page")
-    public ResponseEntity<Page<Teacher>> getTeachersTotal(@RequestParam(required = false) String search,
+    public ResponseEntity<Page<Teacher>> getTeachersTotal(@RequestParam(required = false) String department,
+                                                          @RequestParam(required = false) String search,
                                                           @RequestParam(defaultValue = "create_time") String orderby,
                                                           @RequestParam(defaultValue = "desc") String sort,
                                                           @RequestParam(defaultValue = "5") Integer limit,
                                                           @RequestParam(defaultValue = "0") Integer offset){
-        TeacherQueryParam teacherQueryParam = new TeacherQueryParam();
-        teacherQueryParam.setSearch(search);
-        teacherQueryParam.setOrdeyby(orderby);
-        teacherQueryParam.setSort(sort);
-        teacherQueryParam.setLimit(limit);
-        teacherQueryParam.setOffset(offset);
+        QueryParam queryParam = new QueryParam();
+        queryParam.setDepartment(department);
+        queryParam.setSearch(search);
+        queryParam.setOrderby(orderby);
+        queryParam.setSort(sort);
+        queryParam.setLimit(limit);
+        queryParam.setOffset(offset);
 
-        List<Teacher> teacherList = teacherService.getTeachers(teacherQueryParam);
-        Integer total = teacherService.getTeachersTotal(teacherQueryParam);
+        List<Teacher> teacherList = teacherService.getTeachers(queryParam);
+        Integer total = teacherService.getTeachersTotal(queryParam);
 
         Page<Teacher> page = new Page<>();
-        page.setLimit(teacherQueryParam.getLimit());
-        page.setOffset(teacherQueryParam.getOffset());
+        page.setLimit(queryParam.getLimit());
+        page.setOffset(queryParam.getOffset());
         page.setTotal(total);
         page.setResult(teacherList);
 

@@ -1,7 +1,7 @@
 package com.example.course.dao.impl;
 
 import com.example.course.dao.DepartmentDao;
-import com.example.course.dto.DepartmentQueryParam;
+import com.example.course.dto.QueryParam;
 import com.example.course.dto.DepartmentRequest;
 import com.example.course.model.Department;
 import com.example.course.rowmapper.DepartmentRowMapper;
@@ -36,7 +36,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Department> getDepartments(DepartmentQueryParam departmentQueryParam) {
+    public List<Department> getDepartments(QueryParam departmentQueryParam) {
         String sql = "SELECT department_id,department_name FROM department WHERE 1=1";
         Map<String,Object> map = new HashMap<>();
 
@@ -83,7 +83,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public Integer getDepartmentsTotal(DepartmentQueryParam departmentQueryParam) {
+    public Integer getDepartmentsTotal(QueryParam departmentQueryParam) {
         String sql = "SELECT COUNT(*) FROM department WHERE 1=1";
         Map<String,Object> map =new HashMap<>();
         if(departmentQueryParam.getSearch()!=null){

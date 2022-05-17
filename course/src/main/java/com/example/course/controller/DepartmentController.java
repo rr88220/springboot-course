@@ -1,6 +1,6 @@
 package com.example.course.controller;
 
-import com.example.course.dto.DepartmentQueryParam;
+import com.example.course.dto.QueryParam;
 import com.example.course.dto.DepartmentRequest;
 import com.example.course.model.Department;
 import com.example.course.service.DepartmentService;
@@ -34,14 +34,14 @@ public class DepartmentController {
             @RequestParam(defaultValue = "ASC") String sort,
             @RequestParam(defaultValue = "5") Integer limit,
             @RequestParam(defaultValue = "0") Integer offset){
-        DepartmentQueryParam departmentQueryParam = new DepartmentQueryParam();
-        departmentQueryParam.setSearch(search);
-        departmentQueryParam.setOrderby(orderby);
-        departmentQueryParam.setSort(sort);
-        departmentQueryParam.setLimit(limit);
-        departmentQueryParam.setOffset(offset);
+        QueryParam queryParam = new QueryParam();
+        queryParam.setSearch(search);
+        queryParam.setOrderby(orderby);
+        queryParam.setSort(sort);
+        queryParam.setLimit(limit);
+        queryParam.setOffset(offset);
 
-        List<Department> departmentList = departmentService.getDepartments(departmentQueryParam);
+        List<Department> departmentList = departmentService.getDepartments(queryParam);
         return ResponseEntity.ok(departmentList);
     }
 
@@ -52,15 +52,15 @@ public class DepartmentController {
             @RequestParam(defaultValue = "ASC") String sort,
             @RequestParam(defaultValue = "5") Integer limit,
             @RequestParam(defaultValue = "0") Integer offset){
-        DepartmentQueryParam departmentQueryParam = new DepartmentQueryParam();
-        departmentQueryParam.setSearch(search);
-        departmentQueryParam.setOrderby(orderby);
-        departmentQueryParam.setSort(sort);
-        departmentQueryParam.setLimit(limit);
-        departmentQueryParam.setOffset(offset);
+        QueryParam queryParam = new QueryParam();
+        queryParam.setSearch(search);
+        queryParam.setOrderby(orderby);
+        queryParam.setSort(sort);
+        queryParam.setLimit(limit);
+        queryParam.setOffset(offset);
 
-        List<Department> departmentList = departmentService.getDepartments(departmentQueryParam);
-        Integer total = departmentService.getDepartmentsTotal(departmentQueryParam);
+        List<Department> departmentList = departmentService.getDepartments(queryParam);
+        Integer total = departmentService.getDepartmentsTotal(queryParam);
 
         Page<Department> page = new Page<>();
         page.setLimit(limit);

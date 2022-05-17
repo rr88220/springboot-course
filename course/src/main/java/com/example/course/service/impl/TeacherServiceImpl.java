@@ -1,7 +1,7 @@
 package com.example.course.service.impl;
 
 import com.example.course.dao.TeacherDao;
-import com.example.course.dto.TeacherQueryParam;
+import com.example.course.dto.QueryParam;
 import com.example.course.dto.TeacherRequest;
 import com.example.course.model.Teacher;
 import com.example.course.service.TeacherService;
@@ -21,8 +21,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> getTeachers(TeacherQueryParam teacherQueryParam) {
-        return teacherDao.getTeachers(teacherQueryParam);
+    public List<Teacher> getTeachers(QueryParam queryParam) {
+        return teacherDao.getTeachers(queryParam);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Integer getTeachersTotal(TeacherQueryParam teacherQueryParam) {
-        return teacherDao.getTeachersTotal(teacherQueryParam);
+    public Integer getTeachersTotal(QueryParam queryParam) {
+        return teacherDao.getTeachersTotal(queryParam);
     }
 }

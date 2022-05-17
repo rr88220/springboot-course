@@ -13,7 +13,7 @@ public class TeacherRowMapper implements RowMapper<Teacher> {
         Teacher teacher = new Teacher();
         teacher.setTeacherId(resultSet.getInt("teacher_id"));
         teacher.setTeacherName(resultSet.getString("teacher_name"));
-        teacher.setDepartmentId(resultSet.getInt("department_id"));
+        teacher.setDepartmentName(resultSet.getString("department_name"));
         teacher.setCreateTime(resultSet.getTimestamp("create_time"));
         teacher.setLastModifiedTime(resultSet.getTimestamp("last_modified_time"));
         return teacher;

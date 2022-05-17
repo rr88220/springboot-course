@@ -5,10 +5,10 @@ import java.util.Date;
 public class Teacher {
     private Integer teacherId;
     private String teacherName;
-    private Integer departmentId;
+    private String departmentName;
     private Date createTime;
     private Date lastModifiedTime;
-    private String departmentName;
+
 
     public Integer getTeacherId() {
         return teacherId;
@@ -24,14 +24,6 @@ public class Teacher {
 
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
-    }
-
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     public Date getCreateTime() {
