@@ -1,12 +1,23 @@
 package com.example.course.dto;
 
+import com.example.course.constant.DepartmentCategory;
+
 public class QueryParam {
+    private DepartmentCategory category;
     private String department;
     private String search;
     private String orderby;
     private String sort;
     private Integer limit;
     private Integer offset;
+
+    public DepartmentCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(DepartmentCategory category) {
+        this.category = category;
+    }
 
     public String getDepartment() {
         return department;

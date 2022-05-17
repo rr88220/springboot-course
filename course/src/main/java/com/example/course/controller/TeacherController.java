@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -32,8 +34,8 @@ public class TeacherController {
                                                      @RequestParam(required = false) String search,
                                                      @RequestParam(defaultValue = "create_time") String orderby,
                                                      @RequestParam(defaultValue = "desc") String sort,
-                                                     @RequestParam(defaultValue = "5") Integer limit,
-                                                     @RequestParam(defaultValue = "0") Integer offset){
+                                                     @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+                                                     @RequestParam(defaultValue = "0") @Min(0) Integer offset){
         QueryParam queryParam = new QueryParam();
         queryParam.setDepartment(department);
         queryParam.setSearch(search);
@@ -75,8 +77,8 @@ public class TeacherController {
                                                           @RequestParam(required = false) String search,
                                                           @RequestParam(defaultValue = "create_time") String orderby,
                                                           @RequestParam(defaultValue = "desc") String sort,
-                                                          @RequestParam(defaultValue = "5") Integer limit,
-                                                          @RequestParam(defaultValue = "0") Integer offset){
+                                                          @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+                                                          @RequestParam(defaultValue = "0") @Min(0) Integer offset){
         QueryParam queryParam = new QueryParam();
         queryParam.setDepartment(department);
         queryParam.setSearch(search);

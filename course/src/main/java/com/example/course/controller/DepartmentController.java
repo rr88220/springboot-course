@@ -1,5 +1,6 @@
 package com.example.course.controller;
 
+import com.example.course.constant.DepartmentCategory;
 import com.example.course.dto.QueryParam;
 import com.example.course.dto.DepartmentRequest;
 import com.example.course.model.Department;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -29,12 +32,14 @@ public class DepartmentController {
 
     @GetMapping("/departments")
     public ResponseEntity<List<Department>> getDepartments(
+            @RequestParam(required = false) DepartmentCategory category,
             @RequestParam(required = false) String search,
             @RequestParam(defaultValue = "department_id") String orderby,
             @RequestParam(defaultValue = "ASC") String sort,
-            @RequestParam(defaultValue = "5") Integer limit,
-            @RequestParam(defaultValue = "0") Integer offset){
+            @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset){
         QueryParam queryParam = new QueryParam();
+        queryParam.setCategory(category);
         queryParam.setSearch(search);
         queryParam.setOrderby(orderby);
         queryParam.setSort(sort);
@@ -47,12 +52,14 @@ public class DepartmentController {
 
     @GetMapping("/departments/page")
     public ResponseEntity<Page<Department>> getDepartmentsPage(
+            @RequestParam(required = false) DepartmentCategory category,
             @RequestParam(required = false) String search,
             @RequestParam(defaultValue = "department_id") String orderby,
             @RequestParam(defaultValue = "ASC") String sort,
-            @RequestParam(defaultValue = "5") Integer limit,
-            @RequestParam(defaultValue = "0") Integer offset){
+            @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset){
         QueryParam queryParam = new QueryParam();
+        queryParam.setCategory(category);
         queryParam.setSearch(search);
         queryParam.setOrderby(orderby);
         queryParam.setSort(sort);
