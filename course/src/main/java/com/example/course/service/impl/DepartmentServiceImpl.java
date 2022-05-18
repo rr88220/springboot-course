@@ -27,6 +27,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public Integer getDepartmentsTotal(QueryParam departmentQueryParam) {
+        return departmentDao.getDepartmentsTotal(departmentQueryParam);
+    }
+    @Override
     public Integer createDepartment(DepartmentRequest departmentRequest) {
         return departmentDao.createDepartment(departmentRequest);
     }
@@ -41,8 +45,4 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentDao.deleteDepartment(departmentId);
     }
 
-    @Override
-    public Integer getDepartmentsTotal(QueryParam departmentQueryParam) {
-        return departmentDao.getDepartmentsTotal(departmentQueryParam);
-    }
 }

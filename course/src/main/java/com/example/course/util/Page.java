@@ -7,7 +7,6 @@ public class Page<T> {
     private Integer offset;
     private Integer total;
     private List<T> result;
-
     public Integer getLimit() {
         return limit;
     }

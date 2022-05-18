@@ -39,14 +39,9 @@ public class TeacherDaoImpl implements TeacherDao {
     public List<Teacher> getTeachers(QueryParam queryParam) {
         String sql = "SELECT teacher_id,teacher_name,department_name,create_time,last_modified_time FROM teacher INNER JOIN department USING(department_id) WHERE 1=1";
         Map<String,Object> map = new HashMap<>();
-        if(queryParam.getDepartment()!=null){
-            sql = sql + " AND department_name = :departmentName";
-            map.put("departmentName",queryParam.getDepartment());
-        }
-        if(queryParam.getSearch()!=null){
-            sql = sql + " AND teacher_name LIKE :search";
-            map.put("search","%"+ queryParam.getSearch()+"%");
-        }
+
+        sql = addSql(sql,map,queryParam);
+
         sql = sql +" ORDER BY "+ queryParam.getOrderby()+" "+ queryParam.getSort();
         sql = sql +" LIMIT :limit OFFSET :offset";
         map.put("limit", queryParam.getLimit());
@@ -56,6 +51,17 @@ public class TeacherDaoImpl implements TeacherDao {
         return teacherList;
     }
 
+    @Override
+    public Integer getTeachersTotal(QueryParam queryParam) {
+        String sql = "SELECT COUNT(*) FROM teacher WHERE 1=1";
+        Map<String,Object> map = new HashMap<>();
+
+        sql = addSql(sql,map,queryParam);
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
+    }
     @Override
     public Integer createTeacher(TeacherRequest queryParam) {
         String sql = "INSERT INTO teacher(teacher_name,department_id,create_time,last_modified_time) VALUES (:teacherName,:departmentId,:createTime,:lastModifiedTime)";
@@ -89,11 +95,7 @@ public class TeacherDaoImpl implements TeacherDao {
         map.put("teacherId",teacherId);
         namedParameterJdbcTemplate.update(sql,map);
     }
-
-    @Override
-    public Integer getTeachersTotal(QueryParam queryParam) {
-        String sql = "SELECT COUNT(*) FROM teacher WHERE 1=1";
-        Map<String,Object> map = new HashMap<>();
+    private String addSql(String sql , Map<String,Object> map , QueryParam queryParam){
         if(queryParam.getDepartment()!=null){
             sql = sql + " AND department_name = :departmentName";
             map.put("departmentName",queryParam.getDepartment());
@@ -102,13 +104,8 @@ public class TeacherDaoImpl implements TeacherDao {
             sql = sql + " AND teacher_name LIKE :search";
             map.put("search","%"+ queryParam.getSearch()+"%");
         }
-        sql = sql +" ORDER BY "+ queryParam.getOrderby()+" "+ queryParam.getSort();
-        sql = sql +" LIMIT :limit OFFSET :offset";
-        map.put("limit", queryParam.getLimit());
-        map.put("offset", queryParam.getOffset());
 
-        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
-
-        return total;
+        return sql;
     }
+
 }

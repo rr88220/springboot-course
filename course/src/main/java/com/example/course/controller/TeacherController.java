@@ -48,30 +48,6 @@ public class TeacherController {
         return ResponseEntity.ok(teacherList);
     }
 
-    @PostMapping("/teacher")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody @Valid TeacherRequest teacherRequest){
-        Integer id = teacherService.createTeacher(teacherRequest);
-        Teacher teacher = teacherService.getTeacherById(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(teacher);
-    }
-
-    @PutMapping("/teacher/{teacherId}")
-    public ResponseEntity updateTeacher(@PathVariable Integer teacherId, @RequestBody @Valid TeacherRequest teacherRequest){
-        if(teacherService.getTeacherById(teacherId)!=null) {
-            teacherService.updateTeacher(teacherId, teacherRequest);
-            return ResponseEntity.accepted().build();
-        }else{
-            return ResponseEntity.notFound().build();
-        }
-
-    }
-
-    @DeleteMapping("/teacher/{teacherId}")
-    public ResponseEntity deleteTeacher(@PathVariable Integer teacherId){
-        teacherService.deleteTeacher(teacherId);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("/teachers/page")
     public ResponseEntity<Page<Teacher>> getTeachersTotal(@RequestParam(required = false) String department,
                                                           @RequestParam(required = false) String search,
@@ -98,4 +74,29 @@ public class TeacherController {
 
         return ResponseEntity.ok(page);
     }
+    @PostMapping("/teacher")
+    public ResponseEntity<Teacher> createTeacher(@RequestBody @Valid TeacherRequest teacherRequest){
+        Integer id = teacherService.createTeacher(teacherRequest);
+        Teacher teacher = teacherService.getTeacherById(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(teacher);
+    }
+
+    @PutMapping("/teacher/{teacherId}")
+    public ResponseEntity updateTeacher(@PathVariable Integer teacherId, @RequestBody @Valid TeacherRequest teacherRequest){
+        if(teacherService.getTeacherById(teacherId)!=null) {
+            teacherService.updateTeacher(teacherId, teacherRequest);
+            return ResponseEntity.accepted().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @DeleteMapping("/teacher/{teacherId}")
+    public ResponseEntity deleteTeacher(@PathVariable Integer teacherId){
+        teacherService.deleteTeacher(teacherId);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

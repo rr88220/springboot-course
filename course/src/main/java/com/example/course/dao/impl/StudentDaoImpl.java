@@ -34,14 +34,9 @@ public class StudentDaoImpl implements StudentDao {
     public List<Student> getStudents(QueryParam queryParam) {
         String sql = "SELECT student_id,student_name,department_name,password,create_time,last_modified_time FROM student INNER JOIN department USING(department_id) WHERE 1=1";
         Map<String,Object> map = new HashMap<>();
-        if(queryParam.getDepartment()!=null){
-            sql = sql + " AND department_name = :department";
-            map.put("department",queryParam.getDepartment());
-        }
-        if(queryParam.getSearch()!=null){
-            sql = sql + " AND student_name LIKE :search";
-            map.put("search","%"+queryParam.getSearch()+"%");
-        }
+
+        sql = addSql(sql,map,queryParam);
+
         sql = sql + " ORDER BY "+queryParam.getOrderby() + " " + queryParam.getSort();
         sql = sql + " LIMIT :limit OFFSET :offset";
         map.put("limit",queryParam.getLimit());
@@ -54,18 +49,9 @@ public class StudentDaoImpl implements StudentDao {
     public Integer getStudentsTotal(QueryParam queryParam) {
         String sql = "SELECT COUNT(*) FROM student INNER JOIN department USING(department_id) WHERE 1=1";
         Map<String,Object> map = new HashMap<>();
-        if(queryParam.getDepartment()!=null){
-            sql = sql + " AND department_name = :department";
-            map.put("department",queryParam.getDepartment());
-        }
-        if(queryParam.getSearch()!=null){
-            sql = sql + " AND student_name LIKE :search";
-            map.put("search","%"+queryParam.getSearch()+"%");
-        }
-        sql = sql + " ORDER BY "+queryParam.getOrderby() + " " + queryParam.getSort();
-        sql = sql + " LIMIT :limit OFFSET :offset";
-        map.put("limit",queryParam.getLimit());
-        map.put("offset",queryParam.getOffset());
+
+        sql = addSql(sql,map,queryParam);
+
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
         return total;
     }
@@ -105,4 +91,16 @@ public class StudentDaoImpl implements StudentDao {
         namedParameterJdbcTemplate.update(sql,map);
     }
 
+    private String addSql(String sql , Map<String,Object> map , QueryParam queryParam){
+        if(queryParam.getDepartment()!=null){
+            sql = sql + " AND department_name = :department";
+            map.put("department",queryParam.getDepartment());
+        }
+        if(queryParam.getSearch()!=null){
+            sql = sql + " AND student_name LIKE :search";
+            map.put("search","%"+queryParam.getSearch()+"%");
+        }
+
+        return sql;
+    }
 }

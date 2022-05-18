@@ -1,5 +1,6 @@
 package com.example.course.dto;
 
+import com.example.course.constant.CourseWeek;
 import com.example.course.constant.DepartmentCategory;
 
 public class QueryParam {
@@ -10,6 +11,8 @@ public class QueryParam {
     private String sort;
     private Integer limit;
     private Integer offset;
+    private CourseWeek week;
+    private String _class;
 
     public DepartmentCategory getCategory() {
         return category;
@@ -65,5 +68,21 @@ public class QueryParam {
 
     public void setOffset(Integer offset) {
         this.offset = offset;
+    }
+
+    public CourseWeek getWeek() {
+        return week;
+    }
+
+    public void setWeek(CourseWeek week) {
+        this.week = week;
+    }
+
+    public String get_class() {
+        return _class;
+    }
+
+    public void set_class(String _class) {
+        this._class = _class;
     }
 }

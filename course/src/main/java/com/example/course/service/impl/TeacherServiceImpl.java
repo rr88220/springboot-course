@@ -26,6 +26,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public Integer getTeachersTotal(QueryParam queryParam) {
+        return teacherDao.getTeachersTotal(queryParam);
+    }
+
+    @Override
     public Integer createTeacher(TeacherRequest teacherRequest) {
         return teacherDao.createTeacher(teacherRequest);
     }
@@ -40,8 +45,4 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.deleteTeacher(teacherId);
     }
 
-    @Override
-    public Integer getTeachersTotal(QueryParam queryParam) {
-        return teacherDao.getTeachersTotal(queryParam);
-    }
 }
